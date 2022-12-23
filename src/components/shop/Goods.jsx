@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
+import { useDispatch } from 'react-redux';
+import { setArrChooseClothes } from '../../features/goods/goodsSlice';
+import { useSelector } from 'react-redux'
 function Goods() {
-
-    const [arrChooseClothes, setArrChooseClothes] = useState([])
+    const dispatch = useDispatch();
+    // const [arrChooseClothes, setArrChooseClothes] = useState([])
+    const arrChooseClothes = useSelector((state) => state.goods.arrChooseClothes)
 
     let arrClothes = [{
         name: "кроссовки",
@@ -41,17 +44,17 @@ function Goods() {
                 break
             }
         }
-        console.log({ newArrClothes })
-        setArrChooseClothes(newArrClothes)
-    }
 
+        dispatch(setArrChooseClothes(newArrClothes))
+    }
+    console.log({ arrChooseClothes })
     return (
         <>
             <h1>Товары</h1>
             <div id="container">
                 {arrClothes.map(
                     (item) => {
-                        return <div className="card" style={{ backgroundImage: `url(${item.img})`, backgroundSize: 'cover' }}><div className="info"><span style={{ backgroundColor: 'white' }}>{item.name}</span><br /><button className='add-button' onClick={() => choose(item.id)}>Кнопка</button></div></div>
+                        return <div className="card" style={{ backgroundImage: `url(${item.img})`, backgroundSize: 'cover' }}><div className="info"><span style={{ backgroundColor: 'white' }}>{item.name}</span><br /><button className='add-button' onClick={() => choose(item.id)}>Купить</button></div></div>
                     }
                 )}
             </div>
